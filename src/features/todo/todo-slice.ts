@@ -18,7 +18,7 @@ const todoSlice = createSlice({
     addTodo: (state, action: PayloadAction<ITodo>) => {
       state.todos.push(action.payload);
     },
-    setTodoToUpdateId: (state, action: PayloadAction<ITodo['id']>) => {
+    setTodoToUpdateId: (state, action: PayloadAction<ITodo['id'] | null>) => {
       state.todoToUpdateId = action.payload;
     },
     updateTodo: (

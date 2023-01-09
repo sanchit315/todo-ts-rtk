@@ -1,7 +1,7 @@
 import { Button, Form, Input, Modal } from 'antd';
 import { nanoid } from 'nanoid';
 
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { todoActions } from '../todo-slice';
 
@@ -20,6 +20,12 @@ const AddTodoModal: React.FC<AddTodoModalProps> = ({
   const { todos, todoToUpdateId } = useAppSelector((state) => state.todoList);
   const dispatch = useAppDispatch();
 
+  const resetState = useCallback(() => {
+    setTitle('');
+    setDescription('');
+    setModalOpen(false);
+  }, []);
+
   useEffect(() => {
     if (todoToUpdateId) {
       const todoToUpdate = todos.find((todo) => todo.id === todoToUpdateId);
@@ -28,6 +34,8 @@ const AddTodoModal: React.FC<AddTodoModalProps> = ({
         setDescription(todoToUpdate.description ?? '');
         setModalOpen(true);
       }
+    } else {
+      resetState();
     }
   }, [todoToUpdateId]);
 
@@ -47,13 +55,12 @@ const AddTodoModal: React.FC<AddTodoModalProps> = ({
       })
     );
 
-    setTitle('');
-    setDescription('');
-    setModalOpen(false);
+    resetState();
   };
 
   const handleUpdateTodo = (event: React.FormEvent) => {
     event.preventDefault();
+
     if (todoToUpdateId) {
       dispatch(
         todoActions.updateTodo({
@@ -62,9 +69,8 @@ const AddTodoModal: React.FC<AddTodoModalProps> = ({
           description,
         })
       );
-      setTitle('');
-      setDescription('');
-      setModalOpen(false);
+
+      resetState();
     }
   };
 
@@ -73,8 +79,10 @@ const AddTodoModal: React.FC<AddTodoModalProps> = ({
       title={todoToUpdateId ? 'Update Todo' : 'Add Todo'}
       centered
       open={modalOpen}
-      onOk={() => setModalOpen(false)}
-      onCancel={() => setModalOpen(false)}
+      onCancel={() => {
+        setModalOpen(false);
+        dispatch(todoActions.setTodoToUpdateId(null));
+      }}
       footer={[
         todoToUpdateId ? (
           <Button type='primary' onClick={handleUpdateTodo} block>
