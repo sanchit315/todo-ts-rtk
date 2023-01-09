@@ -1,10 +1,10 @@
 import React from 'react';
-import { useAppDispatch } from '../../hooks';
-import { ITodo } from '../../models/todo.model';
-import { todoActions } from './todo-slice';
-import './todo.css';
+import { useAppDispatch } from '../../../app/hooks';
+import { ITodo } from '../../../app/models/todo.model';
+import { todoActions } from '../todo-slice';
+import './todo-item.css';
 
-const Todo: React.FC<ITodo> = (todo) => {
+const TodoItem: React.FC<ITodo> = (todo) => {
   const dispatch = useAppDispatch();
 
   const handleToggleIsCompleted = () => {
@@ -43,4 +43,4 @@ const Todo: React.FC<ITodo> = (todo) => {
   );
 };
 
-export default Todo;
+export default TodoItem;

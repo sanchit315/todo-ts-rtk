@@ -1,11 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { ITodo } from '../../models/todo.model';
+import { ITodo } from '../../app/models/todo.model';
 
 const initialState: {
   todos: ITodo[];
   todoToUpdateId: ITodo['id'] | null;
 } = {
-  todos: [],
+  todos: localStorage.getItem('todos')
+    ? (JSON.parse(localStorage.getItem('todos')!) as ITodo[])
+    : [],
   todoToUpdateId: null,
 };
 
