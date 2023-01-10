@@ -85,11 +85,16 @@ const AddTodoModal: React.FC<AddTodoModalProps> = ({
       }}
       footer={[
         todoToUpdateId ? (
-          <Button type='primary' onClick={handleUpdateTodo} block>
+          <Button
+            key='update_todo'
+            type='primary'
+            onClick={handleUpdateTodo}
+            block
+          >
             Update Todo
           </Button>
         ) : (
-          <Button type='primary' onClick={handleAddTodo} block>
+          <Button key='add_todo' type='primary' onClick={handleAddTodo} block>
             Add Todo
           </Button>
         ),
