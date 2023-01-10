@@ -1,4 +1,4 @@
-import { Button, Layout, Tabs } from 'antd';
+import { Button, Layout, Typography } from 'antd';
 import { PlusSquareOutlined } from '@ant-design/icons';
 
 import styles from './app.module.css';
@@ -24,20 +24,20 @@ function App() {
   return (
     <>
       <Layout className={styles['layout']}>
-        <Header className={styles['header']}>
-          <h1>Todoz</h1>
-
-          <Button
-            type='primary'
-            icon={<PlusSquareOutlined />}
-            onClick={() => setModalOpen(true)}
-          >
-            Add Todo
-          </Button>
-        </Header>
+        <Sider className={styles['sider']}>
+          <Typography.Title level={1}>Todoz</Typography.Title>
+        </Sider>
 
         <Layout>
-          <Sider></Sider>
+          <Header className={styles['header']}>
+            <Button
+              type='primary'
+              icon={<PlusSquareOutlined />}
+              onClick={() => setModalOpen(true)}
+            >
+              Add Todo
+            </Button>
+          </Header>
 
           <Content style={{ padding: '50px' }}>
             <div className={styles['site-layout-content']}>
